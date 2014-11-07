@@ -260,6 +260,7 @@ def predicted_probabilities(y_true, y_pred, n_groups=30):
     .. plot:: pyplots/predicted_probabilities.py
     """
     plt.hist(y_pred, n_groups)
+    plt.xlim([0, 1])
     plt.xlabel('Predicted Probability')
     plt.ylabel('Count')
 
@@ -340,8 +341,8 @@ def roc_plot(y_true, y_pred):
 
     plt.plot(fpr, tpr, label='ROC curve (area = {:0.2f})'.format(roc_auc))
     plt.plot([0, 1], [0, 1], 'k--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.0])
+    plt.xlim([0, 1])
+    plt.ylim([0, 1])
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
