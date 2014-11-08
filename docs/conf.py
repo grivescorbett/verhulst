@@ -30,6 +30,7 @@ import verhulst
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx.ext.doctest',
     'sphinx.ext.pngmath',
     'sphinx.ext.viewcode',
     'matplotlib.sphinxext.mathmpl',

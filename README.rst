@@ -4,14 +4,6 @@ Verhulst
 Verhulst is a BSD-licensed_ Python library for evaluating binary logistic
 regressions fitted with scikit-learn_.
 
-scikit-learn takes a machine learning approach to data analysis and executes
-numerical routines using liblinear_ return certain intermediate results of
-the logistic regression fitting. statsmodels_ takes an econometric approach
-to data analysis but is not fully compatible with scikit-learn classifiers.
-Verhulst aims to fill this gap by providing a consistent API to statistical
-analysis and plotting routines commonly used to evaluate logistic regression
-fit.
-
 Features
 --------
 
@@ -61,13 +53,6 @@ documentation. The following command generates HTML documentation:
 
 Run a local webserver (e.g., ``python3 -m http.server``) in the directory
 ``docs/_build/html/`` in order to view the documentation in a web browser.
-
-Contribute
-----------
-
-Fork this repository on GitHub and make changes to a branch. Write tests to
-demonstrate that your changes fix a bug or implement a feature as expected.
-Send a pull request to @rpetchler to have your fork integrated.
 
 .. _BSD-licensed: http://opensource.org/licenses/BSD-3-Clause
 .. _scikit-learn: http://scikit-learn.org/

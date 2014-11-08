@@ -1,13 +1,15 @@
-Welcome to verhulst's documentation!
-====================================
+Verhulst
+========
 
-Contents:
+Guide
+-----
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
-   verhulst
-
+   license
+   tutorial
+   api
 
 Indices and tables
 ==================
