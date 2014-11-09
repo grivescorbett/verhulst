@@ -54,6 +54,8 @@ Casewise Statistics
 """
 
 
+from collections import namedtuple
+
 import numpy as np
 import numpy.lib.recfunctions as rf
 import scipy.linalg
@@ -108,7 +110,9 @@ def pearson_chisquare(y_true, y_pred):
     chisquare = np.sum(np.square(r))
     df = len(y_true) - (2 + 1)  # ``p`` = 2 for binary logistic regression
     p = scipy.stats.chisqprob(chisquare, df)
-    return chisquare, df, p
+
+    TestResult = namedtuple('PearsonChiSquare', ('chisquare', 'df', 'p'))
+    return TestResult(chisquare, df, p)
 
 
 def deviance_residuals(y_true, y_pred):
@@ -156,7 +160,9 @@ def deviance(y_true, y_pred):
     D = np.sum(np.square(d))
     df = len(y_true) - (2 + 1)  # ``p`` = 2 for binary logistic regression
     p = scipy.stats.chisqprob(D, df)
-    return D, df, p
+
+    TestResult = namedtuple('Deviance', ('chisquare', 'df', 'p'))
+    return TestResult(D, df, p)
 
 
 ########################################################################
@@ -280,7 +286,8 @@ def hosmer_lemeshow_test(y_true, y_pred, n_groups=10):
     df = len(table) - 2
     p = scipy.stats.chisqprob(C_hat, df)
 
-    return C_hat, df, p
+    TestResult = namedtuple('HosmerLemeshowTest', ('C_hat', 'df', 'p'))
+    return TestResult(C_hat, df, p)
 
 
 def osius_rojek_test(X, y_true, y_pred):
@@ -328,7 +335,8 @@ def osius_rojek_test(X, y_true, y_pred):
     z = (chisquare - df) / np.sqrt(A + residuals)
     p = scipy.stats.chisqprob(z, df)
 
-    return z, df, p
+    TestResult = namedtuple('OsiusRojekTest', ('z', 'df', 'p'))
+    return TestResult(z, df, p)
 
 
 ########################################################################
