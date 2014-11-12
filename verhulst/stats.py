@@ -86,11 +86,13 @@ def pearson_residuals(y_true, y_pred):
     return (y_true - y_pred) / np.sqrt(y_pred * (1 - y_pred))
 
 
-def pearson_chisquare(y_true, y_pred):
+def pearson_chisquare(X, y_true, y_pred):
     """Computes the Pearson chi-square statistic.
 
     Parameters
     ----------
+    X : array
+        Design matrix.
     y_true : array
         Observed labels, either 0 or 1.
     y_pred : array
@@ -105,10 +107,12 @@ def pearson_chisquare(y_true, y_pred):
     p : float
         The p-value of the test.
     """
+    __, p = X.shape
+
     r = pearson_residuals(y_true, y_pred)
 
     chisquare = np.sum(np.square(r))
-    df = len(y_true) - (2 + 1)  # ``p`` = 2 for binary logistic regression
+    df = len(y_true) - (p + 1)
     p = scipy.stats.chisqprob(chisquare, df)
 
     TestResult = namedtuple('PearsonChiSquare', ('chisquare', 'df', 'p'))
@@ -136,11 +140,13 @@ def deviance_residuals(y_true, y_pred):
     return d
 
 
-def deviance(y_true, y_pred):
+def deviance(X, y_true, y_pred):
     """Computes the deviance statistic.
 
     Parameters
     ----------
+    X : array
+        Design matrix.
     y_true : array
         Observed labels, either 0 or 1.
     y_pred : array
@@ -155,13 +161,15 @@ def deviance(y_true, y_pred):
     p : float
         The p-value of the test.
     """
+    __, p = X.shape
+
     d = deviance_residuals(y_true, y_pred)
 
     D = np.sum(np.square(d))
-    df = len(y_true) - (2 + 1)  # ``p`` = 2 for binary logistic regression
+    df = len(y_true) - (p + 1)
     p = scipy.stats.chisqprob(D, df)
 
-    TestResult = namedtuple('Deviance', ('chisquare', 'df', 'p'))
+    TestResult = namedtuple('Deviance', ('D', 'df', 'p'))
     return TestResult(D, df, p)
 
 
@@ -321,7 +329,7 @@ def osius_rojek_test(X, y_true, y_pred):
     v = y_pred * (1 - y_pred)
     c = (1 - 2 * y_pred) / v
 
-    chisquare, __, __ = pearson_chisquare(y_true, y_pred)
+    chisquare, __, __ = pearson_chisquare(X, y_true, y_pred)
 
     # Compute the weighted least-squares solution.
     Xv = X * np.sqrt(v)[:, np.newaxis]

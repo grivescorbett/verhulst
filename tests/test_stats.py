@@ -45,17 +45,12 @@ class LargeFixture(unittest.TestCase):
         self.y_pred = clf.predict_proba(X_test)[:, 1]
 
 
-class TestPearsonChiSquareDeviance(SmallFixture):
+class TestPearsonDevianceResiduals(SmallFixture):
 
     def test_pearson_residuals(self):
         result = vs.pearson_residuals(self.y_true, self.y_pred)
         expected = np.array([-1.85061578, -0.756523, 0.0548546, -1.63599223,
                              0.20145155, 1.17032826])
-        np.testing.assert_allclose(result, expected)
-
-    def test_pearson_chisquare(self):
-        result = vs.pearson_chisquare(self.y_true, self.y_pred)
-        expected = (8.0868363931758829, 3, 0.044250738758029588)
         np.testing.assert_allclose(result, expected)
 
     def test_deviance_residuals(self):
@@ -64,9 +59,17 @@ class TestPearsonChiSquareDeviance(SmallFixture):
                              0.28206691, 1.31358286])
         np.testing.assert_allclose(result, expected)
 
+
+class TestPearsonChiSquareDeviance(LargeFixture):
+
+    def test_pearson_chisquare(self):
+        result = vs.pearson_chisquare(self.X, self.y_true, self.y_pred)
+        expected = (472.6920148425213, 279, 3.6193486448640888e-12)
+        np.testing.assert_allclose(result, expected)
+
     def test_deviance(self):
-        result = vs.deviance(self.y_true, self.y_pred)
-        expected = (8.2945311040325489, 3, 0.040301114529601764)
+        result = vs.deviance(self.X, self.y_true, self.y_pred)
+        expected = (291.65014186867262, 279, 0.2891877888493154)
         np.testing.assert_allclose(result, expected)
 
 
