@@ -1,7 +1,7 @@
 Verhulst
 ========
 
-Verhulst is a BSD-licensed_ Python library for evaluating binary logistic
+Verhulst is an MIT-licensed_ Python library for evaluating binary logistic
 regressions fitted with scikit-learn_.
 
 Features
@@ -54,7 +54,7 @@ documentation. The following command generates HTML documentation:
 Run a local webserver (e.g., ``python3 -m http.server``) in the directory
 ``docs/_build/html/`` in order to view the documentation in a web browser.
 
-.. _BSD-licensed: http://opensource.org/licenses/BSD-3-Clause
+.. _MIT-licensed: http://opensource.org/licenses/MIT
 .. _scikit-learn: http://scikit-learn.org/
 .. _liblinear: http://www.csie.ntu.edu.tw/~cjlin/liblinear/
 .. _statsmodels: http://statsmodels.sourceforge.net/
