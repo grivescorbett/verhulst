@@ -7,6 +7,7 @@
     ecdf_by_observed_label
     hosmer_lemeshow_plot
     influence_plot
+    odds_ratio_plot
     predicted_probabilities
     predicted_probabilities_by_observed_label
     roc_plot
@@ -239,6 +240,46 @@ def influence_plot(X, y_true, y_pred, **kwargs):
 
     plt.xlabel('Predicted Probability')
     plt.ylabel(r'$\Delta \chi^2$')
+
+    plt.tight_layout()
+
+
+def odds_ratio_plot(coef, confint, names):
+    """Plots confidence intervals around odds ratios.
+
+    Note that `vs.confint` returns an array of shape `(2, n)`. This
+    preserves similarity to the `bca` function in the `bootstrap` R
+    package, which served as the reference implementation. This function
+    expects the transposed array of shape `(2, n)` and will raise a
+    `ValueError` if this is not the case.
+
+    Parameters
+    ----------
+    coef : array
+        An array of odds ratios.
+    confint : array
+        An array of confidence intervals around the odds ratios.
+    names : array
+        A collection of strings corresponding to the feature names.
+    """
+    nrow, ncol = confint.shape
+    if ncol != 2:
+        raise ValueError('Ambiguous lower and upper confidence bounds')
+
+    if not len(coef) == nrow == len(names):
+        raise ValueError('Arguments have mismatched dimensions')
+
+    index = np.arange(nrow)
+    confint = confint.T  # `plt.errorbar` expects shape `(2, n)`
+
+    plt.errorbar(coef, index, xerr=confint, fmt='o')
+    plt.axvline(1, c='k', ls='--')
+
+    plt.yticks(index, names)
+    plt.ylim(-0.5, nrow - 0.5)
+
+    plt.title('Bootstrapped Odds Ratio Confidence Intervals')
+    plt.xlabel('Odds Ratio')
 
     plt.tight_layout()
 

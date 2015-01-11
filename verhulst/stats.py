@@ -61,6 +61,7 @@ import numpy.lib.recfunctions as rf
 import scipy.linalg
 import scipy.stats
 
+from .bootstrap import confint  # noqa
 from .util import binarize, make_recarray
 
 
